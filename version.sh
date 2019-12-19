@@ -17,17 +17,18 @@
 # Note that the RELEASE-VERSION file should *not* be checked into git;
 # please add it to your top-level .gitignore file.
 
-version=$(git describe)
-if [ -n ${version} ]; then
-    # If we got something from git-describe, write the version to the
-    # output file.
-    echo ${version} > RELEASE-VERSION
-else
-    version=$(cat RELEASE-VERSION)
-    if [ -z ${version} ]; then
-        echo "Cannot find the version number!" >&2
-        exit 1
-    fi
-fi
+# version=$(git describe)
+# if [ -n ${version} ]; then
+#     # If we got something from git-describe, write the version to the
+#     # output file.
+#     echo ${version} > RELEASE-VERSION
+# else
+#     version=$(cat RELEASE-VERSION)
+#     if [ -z ${version} ]; then
+#         echo "Cannot find the version number!" >&2
+#         exit 1
+#     fi
+# fi
 
-echo ${version}
+# echo ${version}
+echo "0.15.0"
