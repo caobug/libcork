@@ -22,6 +22,9 @@
 #include "libcork/helpers/errors.h"
 #include "libcork/helpers/posix.h"
 
+#ifdef __APPLE__
+#include <TargetConditionals.h>
+#endif
 
 #if !defined(CORK_DEBUG_SUBPROCESS)
 #define CORK_DEBUG_SUBPROCESS  0
@@ -410,7 +413,11 @@ cork_subprocess_start(struct cork_subprocess *self)
 
     /* Fork the child process. */
     DEBUG("Forking child process\n");
-    pid = fork();
+    #if TARGET_OS_TV || TARGET_OS_WATCH
+        pid = -1;
+    #else
+        pid = fork();
+    #endif
     if (pid == 0) {
         /* Child process */
         int  rc;

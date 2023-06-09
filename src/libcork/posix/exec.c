@@ -15,6 +15,10 @@
 #include "libcork/os/subprocess.h"
 #include "libcork/helpers/errors.h"
 
+#ifdef __APPLE__
+#include <TargetConditionals.h>
+#endif
+
 #define ri_check_posix(call) \
     do { \
         while (true) { \
@@ -165,6 +169,9 @@ cork_exec_set_cwd(struct cork_exec *exec, const char *directory)
 int
 cork_exec_run(struct cork_exec *exec)
 {
+#if TARGET_OS_TV || TARGET_OS_WATCH
+    return -1;
+#else
     const char  **params;
 
     /* Make sure the parameter array is NULL-terminated. */
@@ -186,4 +193,5 @@ cork_exec_run(struct cork_exec *exec)
 
     /* This is unreachable */
     return 0;
+#endif
 }
